@@ -12,8 +12,3 @@ Get more practice infomation from SPRING-IoC-AOP-ORM.pptx
 
 --- Next ---
 1. ORM (Object-Relational Mapping)
- 
-
-
-
-test
