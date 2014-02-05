@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="classpath:ioc/simple.properties"/>
+	</bean>
+
+	<beans>		
+		<bean id="printer" class="hello.component.MessagePrinter">
+			<property name="service" ref="myService"/>
+		</bean>
+	    <bean id="myService" class="hello.service.HelloWorldService"/>
+	    
+	    <!-- Instantiating beans -->
+	    <bean id="instance1" 
+	    	class="hello.service.MessageLocation"
+	    	factory-method="createStaticInstance"/>
+	    	
+	    <bean id="serviceLocator" class="hello.service.MessageLocation"/>
+	    <bean id="instance2" 
+	    	factory-bean="serviceLocator"
+	    	factory-method="createInstance"/>
+	    
+	   <bean id="msgType2" class="hello.service.InjectionService">
+	    	<property name="id" value="2"/>
+	    	<property name="msg" value="type 2"/>
+	   </bean>
+	   
+	   <bean id="msgType3-1" class="hello.service.InjectionService">
+	    	<constructor-arg type="int" value="3"/>
+   			<constructor-arg type="java.lang.String" value="construct type"/>
+	   </bean>
+	    <bean id="msgType3-2" class="hello.service.InjectionService">
+	    	<constructor-arg index="0" value="3"/>
+   			 <constructor-arg index="1" value="construct index"/>
+	   </bean>
+	    <bean id="msgType3-3" class="hello.service.InjectionService">
+	    	<constructor-arg name="id" value="3"/>
+   			 <constructor-arg name="msg">
+   			 	<null/>
+   			 </constructor-arg>
+	   </bean>
+	   
+	    <bean id="fullInjectionService" 
+	    	class="hello.service.InjectionService"
+	    	p:id="10"
+	    	p:msg="p-namespace" scope="prototype" lazy-init="true">
+	    	<property name="props">
+	    		<props>
+	    			<prop key="1">prop1</prop>
+	    			<prop key="2">prop2</prop>
+	    		</props>
+	    	</property>
+	    	<property name="map">
+	    		<map>
+	    			<entry key="1" value="map1"/>
+	    			<entry key="2" value="map2"/>
+	    		</map>
+	    	</property>
+	    	<property name="list">
+	    		<list>
+	    			<value>${prop.1}</value>
+	    			<value>list2</value>
+	    		</list>
+	    	</property>
+	    	<property name="set">
+	    		<set>
+	    			<value>set1</value>
+	    			<value>set2</value>
+	    		</set>
+	    	</property>
+	   </bean>
+	</beans>
+
+</beans>

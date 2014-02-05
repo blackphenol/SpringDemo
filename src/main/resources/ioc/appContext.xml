@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<aop:aspectj-autoproxy />
+	
+	<bean id="hotFinderType2" class="ioc.di.DIHotLineMovieFinder">
+		<property name="filepath">
+			<value>movies1.txt</value>
+		</property>
+	</bean>
+	<bean id="hotFinderType3" class="ioc.di.DIHotLineMovieFinder">
+		<constructor-arg type="java.lang.String" value="movies1.txt"/>
+	</bean>
+
+	<bean id="diMovieListerType2" class="ioc.di.DIMovieLister">
+		<property name="finder">
+			<ref bean="hotFinderType2"/>
+		</property>
+	</bean>
+	
+	<bean id="diMovieListerType3" class="ioc.di.DIMovieLister">
+		<constructor-arg index="0">
+			<ref bean="hotFinderType3"/>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="myAspect" class="aop.aspect.SimpleAspect">
+   	
+	</bean>
+</beans>
