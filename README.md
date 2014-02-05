@@ -5,10 +5,14 @@ Spring framework practice source code
 
 Get more practice infomation from SPRING-IoC-AOP-ORM.pptx
 
---- DONE ---
+DONE
+------
+
 1. Dependency Injection
 2. Aspect Oriented Programming
 
 
---- Next ---
+Next
+------
+
 1. ORM (Object-Relational Mapping)
